@@ -14,26 +14,7 @@ public class Perceptron {
     // A constant that determines how big of an amount to increase/decrease the weights when training
     private float learningRate = 0f;
     
-
     
-    // GIVEN
-    // Return all the weights as an array
-    public float[] GetWeights
-    {
-        get { return weights; }
-    }
-
-
-    // GIVEN
-    // Manually set the value of one weight at a given index (0-based) in the weight array 
-    public void SetWeight(int index, float value)
-    {
-        if (index >= weights.Length)
-            return;
-
-        weights[index] = value;
-    }
-
 
     // TODO
     // Return the perceptron's predicted output given the array of inputs
@@ -91,5 +72,22 @@ public class Perceptron {
         {
             weights[weight] = 0f;
         }
+    }
+
+    
+    // Return all the weights as an array
+    public float[] GetWeights
+    {
+        get { return weights; }
+    }
+
+
+    // Manually set the value of one weight at a given index (0-based) in the weight array 
+    public void SetWeight(int index, float value)
+    {
+        if (index >= weights.Length)
+            return;
+
+        weights[index] = value;
     }
 }

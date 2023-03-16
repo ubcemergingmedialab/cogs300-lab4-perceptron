@@ -2201,9 +2201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e73978e3c876bc40a6eb9ea972eec5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planned: 0
-  sensorLogic: 0
-  perceptron: 1
   perceptronPre: 0
   perceptronTrained: 1
   sensorDistances: []
@@ -2363,7 +2360,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4c68630b929f8014a89bca5d60cb9914, type: 2}
+  - {fileID: 2100000, guid: 1051879d678266748ae2762b66db3304, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

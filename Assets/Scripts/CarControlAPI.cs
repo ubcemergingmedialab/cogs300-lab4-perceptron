@@ -55,12 +55,6 @@ public class CarControlAPI : MonoBehaviour
         else if (perceptronTrained)
         {
             PerceptronMovement(sensorDistances, trainedWeights);
-            string result = "Sensor Distances: ";
-            foreach (var item in sensorDistances)
-            {
-                result += item.ToString() + "f, ";
-            }
-            Debug.Log(result);
         }
     }
 

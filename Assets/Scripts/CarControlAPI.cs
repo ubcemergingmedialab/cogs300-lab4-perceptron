@@ -88,6 +88,8 @@ public class CarControlAPI : MonoBehaviour
             new TrainingData(new float[]{0.15f, 0.12f, 0.06f, 0.02f, 0.02f, 0.02f, 0.11f, 0.06f, 0.08f}, 1),
         };
 
+        //Updates the Training data (so we can save in a future button click...or unpause, etc).
+        JSONSaveSystem.Instance.SetTrainingData(trainingDataList);
 
         float learningRate = 0.1f;
         for (int i = 0; i < maxIterations; i++)
@@ -113,18 +115,6 @@ public class CarControlAPI : MonoBehaviour
 
             }
 
-        }
-    }
-
-    public class TrainingData
-    {
-        public float[] Inputs;
-        public int Output;
-
-        public TrainingData(float[] inputs, int output)
-        {
-            Inputs = inputs;
-            Output = output;
         }
     }
 

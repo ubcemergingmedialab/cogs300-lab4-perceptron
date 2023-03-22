@@ -10,7 +10,7 @@ public class CarControlAPI : MonoBehaviour
     #region Variables
     PrometeoCarController controlScript;
 
-    public TrainingData[] trainingDataList = { };
+    public List<TrainingData> trainingDataList = new List<TrainingData>();
 
     public bool perceptronPre, perceptronTrained;
 
@@ -39,7 +39,9 @@ public class CarControlAPI : MonoBehaviour
     {
         if (perceptronTrained)
         {
+            trainingDataList = JSONSaveSystem.Instance.ReadFromJsonFile();
             TrainPerceptron();
+          
         }
     }
 
@@ -82,11 +84,13 @@ public class CarControlAPI : MonoBehaviour
     void addTrainingData(float[] sensorInput, int desiredOutput)
     {
         JSONSaveSystem.Instance.AddTrainingData(new TrainingData(sensorInput, desiredOutput));
+        trainingDataList.Add(new TrainingData(sensorInput, desiredOutput));
+        TrainPerceptron();
     }
 
     void TrainPerceptron()
     {
-        trainingDataList = JSONSaveSystem.Instance.ReadFromJsonAsArray();
+        
         //trainingDataList = new TrainingData[]{
         //    new TrainingData(new float[]{0.09f, 0.06f, 0.03f, 0.07f, 0.07f, 0.07f, 0.06f, 0.09f, 0.11f}, -1),
         //    new TrainingData(new float[]{0.12f, 0.11f, 0.08f, 0.06f, 0.05f, 0.04f, 0.03f, 0.07f, 0.07f}, 1),
@@ -98,16 +102,16 @@ public class CarControlAPI : MonoBehaviour
         //};
 
         //Updates the Training data (so we can save in a future button click...or unpause, etc).
-        JSONSaveSystem.Instance.SetTrainingData(trainingDataList);
+        JSONSaveSystem.Instance.SetTrainingData(trainingDataList.ToArray());
 
         float learningRate = 0.1f;
         for (int i = 0; i < maxIterations; i++)
         {
             int totalError = 0;
-            for (int j = 0; j < trainingDataList.Length; j++)
+            for (int j = 0; j < trainingDataList.Count; j++)
             {
                 int output = caluculatePerceptronOutput(trainingDataList[j].Inputs, trainedWeights);
-                int error = trainingDataList[j].Output - output;
+                int error = (trainingDataList[j].Output - output) / 2;
 
                 totalError += Mathf.Abs(error);
                 Debug.Log("totalError: " + totalError);

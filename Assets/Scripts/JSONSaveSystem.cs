@@ -96,6 +96,13 @@ public class JSONSaveSystem : MonoBehaviour
         return trainingDataList.td.ToArray();
     }
 
+    public List<TrainingData> ReadFromJsonFile()
+    {
+        TrainingDataList trainingDataCopy = ReadFromJson();
+
+        return trainingDataCopy.td;
+    }
+
     //Add a TrainingData object to the list
     public void AddTrainingData(TrainingData td)
     {

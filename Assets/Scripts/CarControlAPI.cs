@@ -55,6 +55,15 @@ public class CarControlAPI : MonoBehaviour
         else if (perceptronTrained)
         {
             PerceptronMovement(sensorDistances, trainedWeights);
+            if(Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                addTrainingData(sensorDistances, -1);
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                addTrainingData(sensorDistances, 1);
+            }
+
         }
     }
 
@@ -70,17 +79,23 @@ public class CarControlAPI : MonoBehaviour
         return distances;
     }
 
+    void addTrainingData(float[] sensorInput, int desiredOutput)
+    {
+        JSONSaveSystem.Instance.AddTrainingData(new TrainingData(sensorInput, desiredOutput));
+    }
+
     void TrainPerceptron()
     {
-        trainingDataList = new TrainingData[]{
-            new TrainingData(new float[]{0.09f, 0.06f, 0.03f, 0.07f, 0.07f, 0.07f, 0.06f, 0.09f, 0.11f}, -1),
-            new TrainingData(new float[]{0.12f, 0.11f, 0.08f, 0.06f, 0.05f, 0.04f, 0.03f, 0.07f, 0.07f}, 1),
-            new TrainingData(new float[]{0.07f, 0.03f, 0.07f, 0.07f, 0.07f, 0.06f, 0.08f, 0.11f, 0.12f}, -1),
-            new TrainingData(new float[]{0.12f, 0.11f, 0.08f, 0.05f, 0.04f, 0.03f, 0.03f, 0.07f, 0.07f}, 1),
-            new TrainingData(new float[]{0.03f, 0.08f, 0.07f, 0.1f, 0.11f, 0.12f, 0.14f, 0.14f, 0.12f}, -1),
-            new TrainingData(new float[]{0.11f, 0.07f, 0.09f, 0.09f, 0.02f, 0.04f, 0.04f, 0.07f, 0.09f}, 1),
-            new TrainingData(new float[]{0.15f, 0.12f, 0.06f, 0.02f, 0.02f, 0.02f, 0.11f, 0.06f, 0.08f}, 1),
-        };
+        trainingDataList = JSONSaveSystem.Instance.ReadFromJsonAsArray();
+        //trainingDataList = new TrainingData[]{
+        //    new TrainingData(new float[]{0.09f, 0.06f, 0.03f, 0.07f, 0.07f, 0.07f, 0.06f, 0.09f, 0.11f}, -1),
+        //    new TrainingData(new float[]{0.12f, 0.11f, 0.08f, 0.06f, 0.05f, 0.04f, 0.03f, 0.07f, 0.07f}, 1),
+        //    new TrainingData(new float[]{0.07f, 0.03f, 0.07f, 0.07f, 0.07f, 0.06f, 0.08f, 0.11f, 0.12f}, -1),
+        //    new TrainingData(new float[]{0.12f, 0.11f, 0.08f, 0.05f, 0.04f, 0.03f, 0.03f, 0.07f, 0.07f}, 1),
+        //    new TrainingData(new float[]{0.03f, 0.08f, 0.07f, 0.1f, 0.11f, 0.12f, 0.14f, 0.14f, 0.12f}, -1),
+        //    new TrainingData(new float[]{0.11f, 0.07f, 0.09f, 0.09f, 0.02f, 0.04f, 0.04f, 0.07f, 0.09f}, 1),
+        //    new TrainingData(new float[]{0.15f, 0.12f, 0.06f, 0.02f, 0.02f, 0.02f, 0.11f, 0.06f, 0.08f}, 1),
+        //};
 
         //Updates the Training data (so we can save in a future button click...or unpause, etc).
         JSONSaveSystem.Instance.SetTrainingData(trainingDataList);

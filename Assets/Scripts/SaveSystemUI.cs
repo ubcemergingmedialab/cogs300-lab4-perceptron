@@ -62,6 +62,7 @@ public class SaveSystemUI : Editor
         {
             //We stopped playing!
             Debug.Log("We stopped playing!");
+            JSONSaveSystem.SaveIntoJson();
         }
     }
 }

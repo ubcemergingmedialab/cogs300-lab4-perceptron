@@ -62,6 +62,10 @@ public class JSONSaveSystem : MonoBehaviour
         {
             string data = System.IO.File.ReadAllText(Application.persistentDataPath + NAME_OF_FILE);
             trainingDataList = JsonUtility.FromJson<TrainingDataList>(data);
+            if(trainingDataList == null)
+            {
+                trainingDataList = new TrainingDataList();
+            }
             Debug.Log("Fie loaded");
             return trainingDataList;
         }
